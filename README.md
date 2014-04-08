@@ -9,7 +9,7 @@ When you use `ui-mask` directive, you end up with a model with only numbers (for
 You lose the format and everything, which is why you use `ui-mask` in the first place.
 
 ```html
-<input ui-mask="(99) 9999-9999?9" ng-model="doh"> //input is now (12) 3456-1234_
+<input ui-mask="(99) 9999-9999?9" ng-model="doh"> <!-- input is now (12) 3456-1234_ -->
 ```
 
 You end up with:
@@ -27,9 +27,9 @@ angular.module('yourapp', ['ngCleanMask']);
 ```
 
 ```html
-<input clean-mask="(99) 9999-9999" ng-model="yup">
+<input clean-mask="(99) 9999-9999?9" ng-model="yup"> <!-- input is now (12) 3456-1234_ -->
 ```
 
 ```js
-$scope.yup === '(12) 3456-1234'
+$scope.yup === '(12) 3456-1234' // model is correct now!
 ```
