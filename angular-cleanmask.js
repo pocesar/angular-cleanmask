@@ -1,35 +1,39 @@
-angular.module('ngCleanMask', ['ui.mask']).directive('cleanMask', [
-    '$compile', '$timeout', function($compile, $timeout) {
+  angular.module('ngCleanMask', ['ui.mask']).directive('cleanViewValue', [
+    function() {
       return {
+        restrict: 'A',
+        priority: 500,
+        require: 'ngModel',
+        link: function(scope, element, attrs, controller) {
+          var parser;
+          if (controller === void 0) {
+            return;
+          }
+          parser = function(text) {
+            var ret;
+            if (controller === void 0) {
+              return text;
+            }
+            ret = text;
+            if (text !== controller.$viewValue) {
+              ret = controller.$viewValue;
+            }
+            return ret.replace(/_/g, '');
+          };
+          controller.$parsers.push(parser);
+        }
+      };
+    }
+  ]).directive('cleanMask', [
+    function() {
+      return {
+        restrict: 'A',
         require: 'ngModel',
         compile: function(el, attr) {
           el.removeAttr('clean-mask');
           el.attr('ui-mask', attr.cleanMask);
-          return function(scope, element, attrs, controller) {
-            var parser;
-            
-            if (!controller) {
-              return;
-            }
-            
-            parser = function(text) {
-              var ret;
-              ret = text;
-              if (text !== controller.$viewValue) {
-                ret = controller.$viewValue;
-              }
-              return ret.replace(/_/g, '');
-            };
-            
-            $compile(element)(scope, function(clone) {
-              element.replaceWith(clone);
-              
-              $timeout(function() {
-                controller = clone.data('$ngModelController');
-                controller.$parsers.push(parser);
-              }, 0, false);
-            });
-          };
+          el.attr('clean-view-value', '');
+          return function(scope, element, attrs) {};
         }
       };
     }
