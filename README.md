@@ -27,7 +27,7 @@ angular.module('yourapp', ['ngCleanMask']);
 ```
 
 ```html
-<input clean-mask="(99) 9999-9999?9" ng-model="yup"> <!-- input is now (12) 3456-1234_ -->
+<input clean-view-value ui-mask="(99) 9999-9999?9" ng-model="yup"> <!-- input is now (12) 3456-1234_ -->
 ```
 
 ```js
