@@ -24,17 +24,4 @@
         }
       };
     }
-  ]).directive('cleanMask', [
-    function() {
-      return {
-        restrict: 'A',
-        require: 'ngModel',
-        compile: function(el, attr) {
-          el.removeAttr('clean-mask');
-          el.attr('ui-mask', attr.cleanMask);
-          el.attr('clean-view-value', '');
-          return function(scope, element, attrs) {};
-        }
-      };
-    }
   ]);
